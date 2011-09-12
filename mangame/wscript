@@ -1,0 +1,22 @@
+APPNAME='calc_hlac'
+VERSION='0.0.1'
+
+top = '.'
+out = 'build'
+
+def options(opt):
+    opt.load('compiler_cxx')
+    opt.add_option('--debug', action='store_true', default=False, help='debug mode')
+
+def configure(conf):
+    conf.load('compiler_cxx')
+    #conf.check_cfg(package='opencv', args=["--cflags", "--libs"], uselib_store="OPENCV")
+
+    if conf.options.debug:
+        conf.env.append_value("CXXFLAGS", ['-g'])
+    else:
+        conf.env.append_value("CXXFLAGS", ['-O3'])
+
+def build(bld):
+    bld.program(source = 'mangame.cpp',
+            target = 'mangame')
